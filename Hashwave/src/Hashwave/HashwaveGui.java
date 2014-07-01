@@ -1,7 +1,6 @@
 package Hashwave;
 
 import javax.crypto.KeyGenerator;
-
 import javax.crypto.SecretKey;
 import javax.swing.*;
 
@@ -12,15 +11,18 @@ import java.security.NoSuchAlgorithmException;
 
 public class HashwaveGui extends JFrame implements ActionListener {
 	
-	/**
-	 * Don't even know what this does but whatever 0_o
-	 */
 	private static final long serialVersionUID = 1L;
 	Hashwave hwi;
-	JTextField keyBox = new JTextField(15);
-	JTextArea dataBox = new JTextArea(10,50);
+	
+	JTextField keyBox = new JTextField(5);
+	JTextArea dataBox = new JTextArea(5,5);
 	JButton encryptButton = new JButton("Encrypt");
-	JButton decryptButton = new JButton("Decrypt");		
+	JButton getStatusButton = new JButton("Get Size of IV");
+	JButton decryptButton = new JButton("Decrypt");
+	JLabel encryptionLabel = new JLabel("Data to Encrypt/Decrypt");
+	JLabel keyLabel = new JLabel("Key");
+	JPanel mainPane = new JPanel( new BorderLayout() );
+	
 	boolean wrap = true;
 	boolean wword = true;
 	SecretKey key = generateUserKey();
@@ -28,14 +30,47 @@ public class HashwaveGui extends JFrame implements ActionListener {
 	
 	public HashwaveGui() {
 		super("Hashwave - The Ultimate Encryption Platform");
-		setSize(600,600);
-		setStyle();
-		setVisible(true);
+		setSize(700,700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		dataBox.setLineWrap(wrap);
-		dataBox.setWrapStyleWord(wword);
+
 		
-		setupPane();
+		
+			JPanel leftsp = new JPanel();
+			JPanel rightsp = new JPanel();
+			JPanel encsp = new JPanel();
+			//JPanel keysp = new JPanel();
+			JPanel stackersp = new JPanel();
+
+			encsp.setLayout(new BoxLayout(encsp, BoxLayout.X_AXIS));
+			//keysp.setLayout(new BoxLayout(keysp, BoxLayout.X_AXIS));
+			
+			stackersp.setLayout(new BoxLayout(stackersp, BoxLayout.Y_AXIS));
+			
+			
+					encsp.add(encryptionLabel);
+					encsp.add(dataBox);
+						dataBox.setLineWrap(wrap);
+						dataBox.setWrapStyleWord(wword);
+					//keysp.add(keyLabel);
+					//keysp.add(keyBox);
+					
+				stackersp.add(encsp);
+				//stackersp.add(keysp);
+			
+				leftsp.add(encryptButton);
+				rightsp.add(decryptButton);
+				rightsp.add(getStatusButton);
+
+				mainPane.add("West",leftsp);
+				mainPane.add("East",rightsp);
+				mainPane.add("North",stackersp);
+			
+			encryptButton.addActionListener(this);
+			decryptButton.addActionListener(this);
+			getStatusButton.addActionListener(this);
+
+		add(mainPane);
+		setVisible(true);
 		hwi = new Hashwave();
 	}
 	
@@ -46,56 +81,40 @@ public class HashwaveGui extends JFrame implements ActionListener {
 			} catch (NoSuchAlgorithmException e2) {
 				e2.printStackTrace();
 			}
-	            kg.init(256);
+	            kg.init(128);
 	            SecretKey key = kg.generateKey();
 	    return key;
 	}
 	
-	private static void setStyle() {
+	protected void setStyle() {
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			
 		} catch (Exception exc){
 			System.out.println(exc.getMessage());
 		}
 	}
-	
-	private void setupPane() {		
 
-		JPanel pane = new JPanel(new BorderLayout());
-		
-		JLabel encryptionLabel = new JLabel("Data to Encrypt/Decrypt");
-		JLabel keyLabel = new JLabel("Key");		
-		
-		JPanel leftsp = new JPanel();
-		JPanel rightsp = new JPanel();
-		
-			pane.add(encryptionLabel);
-			pane.add(dataBox);
-			pane.add(keyLabel);
-			pane.add(keyBox);
-		
-		leftsp.add(encryptButton);
-		rightsp.add(decryptButton);
-		
-		encryptButton.addActionListener(this);
-		decryptButton.addActionListener(this);
-		
-	}
 	
 	public void actionPerformed(ActionEvent e) {
         if(e.getSource() == encryptButton){
-	        	try {
-	        		dataBox.setText(hwi.maskData( hwi.encryptData(dataBox.getText().getBytes(),this.key) ).toString());
-	        	} catch (Exception e1){
-	        		System.out.println(e1);
-	        	}
+        	try {
+        		dataBox.setText( hwi.encryptData(dataBox.getText().getBytes(),this.key).toString());
+        	} catch (Exception e1){
+        		System.out.println(e1);
+        	}
         }else if(e.getSource() == decryptButton){
-	        	try {
-	        		dataBox.setText( hwi.unmaskData( hwi.decryptData(dataBox.getText().getBytes(),this.key).toString() ).toString() );
-	        	} catch (Exception e1){
-	        		System.out.println(e1);
-	        	}
+        	try {
+        		byte[] datab = dataBox.getText().getBytes();
+        		byte[] datab1 = java.util.Arrays.copyOf(datab,48);
+        		
+        		dataBox.setText( hwi.decryptData(datab1,this.key).toString());
+        	} catch (Exception e1){
+        		System.out.println(e1);
+        	}
+        }else if(e.getSource() == getStatusButton){
+        	Integer fullMessage = hwi.getIvLength();
+        	JOptionPane.showMessageDialog(null,fullMessage.toString());
         }
 	}
 	
