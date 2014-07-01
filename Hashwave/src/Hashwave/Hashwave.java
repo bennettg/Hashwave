@@ -17,9 +17,6 @@ public class Hashwave {
 		h.initGui();
 	}
 	
-	public Hashwave () {
-		//pretty aye
-	}
 	
 	private void initGui() {
 		this.hwGui = new HashwaveGui();
