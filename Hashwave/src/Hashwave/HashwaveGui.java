@@ -3,13 +3,7 @@ package Hashwave;
 import javax.crypto.KeyGenerator;
 
 import javax.crypto.SecretKey;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
@@ -36,10 +30,8 @@ public class HashwaveGui extends JFrame implements ActionListener {
 		super("Hashwave - The Ultimate Encryption Platform");
 		setSize(600,600);
 		setStyle();
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
 		dataBox.setLineWrap(wrap);
 		dataBox.setWrapStyleWord(wword);
 		
@@ -50,11 +42,11 @@ public class HashwaveGui extends JFrame implements ActionListener {
 	private SecretKey generateUserKey() {
     	KeyGenerator kg = null;
 			try {
-				kg = KeyGenerator.getInstance(hwi.defaultCipher);
+				kg = KeyGenerator.getInstance("AES");
 			} catch (NoSuchAlgorithmException e2) {
 				e2.printStackTrace();
 			}
-	            kg.init(56);
+	            kg.init(256);
 	            SecretKey key = kg.generateKey();
 	    return key;
 	}

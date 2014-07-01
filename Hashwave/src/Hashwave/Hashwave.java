@@ -13,10 +13,15 @@ public class Hashwave {
 	HashwaveGui hwGui;
 	
 	public static void main(String[] args){
-		new Hashwave();
+		Hashwave h = new Hashwave();
+		h.initGui();
 	}
 	
 	public Hashwave () {
+		//pretty aye
+	}
+	
+	private void initGui() {
 		this.hwGui = new HashwaveGui();
 	}
 	
