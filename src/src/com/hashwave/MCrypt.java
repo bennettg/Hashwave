@@ -121,10 +121,10 @@ public class MCrypt {
 
         
         private static String initIV() {
-			String iv = "a9dsfn3";
+			String iv = "";
 	
 			RandomGen rand = new RandomGen();
-			iv = iv + rand;
+			iv = iv + rand.generateRandom(9, 16);
 			return iv;
         }
 
