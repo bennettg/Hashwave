@@ -1,10 +1,8 @@
 package com.hashwave;
 
+import org.apache.commons.codec.binary.Base64;
+
 import java.security.NoSuchAlgorithmException;
-
-
-
-
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -59,6 +57,8 @@ public class MCrypt {
                         
                         finalEncrypted = MCrypt.bytesToHex(encryptedData);
                         finalEncrypted = MCrypt.bytesToHex(((encryptedData +"_*()*_"+iv).getBytes()));
+                        finalEncrypted = MCrypt.maskData(finalEncrypted.getBytes());
+                        finalEncrypted = MCrypt.bytesToHex(finalEncrypted.getBytes());
 
                 } catch (Exception e)
                 {                       
@@ -76,16 +76,25 @@ public class MCrypt {
                 String decryptedData = null;
                 byte[] decryptedE = null;
                 String thisiv;
+                
+        		code = MCrypt.hexToBytes(code).toString();
+        		code = MCrypt.unmaskData(code);
 
-                try {   
-                		byte[] decryptedA = hexToBytes(code);
-                		String decryptedB = new String(decryptedA, "UTF-8");;
-                		String[] decryptedC = code.split("_*()*_");	
-                        	decryptedData = decryptedC[0];
-                        	thisiv = decryptedC[1];
-                        	
-                        	
-                        ivspec = new IvParameterSpec(iv.getBytes());
+        		byte[] decryptedA = hexToBytes(code);
+        		String decryptedB = new String(decryptedA, "UTF-8");;
+        		String[] decryptedC = decryptedB.split("_*()*_");	
+                	decryptedData = decryptedC[0]; //This is what we will be decrypting
+                	thisiv = decryptedC[1];  
+                	/***************************
+                	*	thisiv is a replacement for the initially loaded iv that is randomized at at the press of encrypt button
+              		*	thisiv will hold the random iv string of 16 characters that was placed into it initially at encryption point.
+              		*
+              		*/
+                	
+                	
+                ivspec = new IvParameterSpec(thisiv.getBytes());
+
+                try {  
                         
                         cipher.init(Cipher.DECRYPT_MODE, keyspec, ivspec);
                         	
@@ -140,6 +149,16 @@ public class MCrypt {
                         return buffer;
                 }
         }
+        
+    	public static String maskData (byte[] input){
+    		byte[] encoded = Base64.encodeBase64(input);
+    		return encoded.toString();
+    	}
+    	
+    	public static String unmaskData (String input){
+    		byte[] decoded = Base64.decodeBase64(input);
+    		return decoded.toString();
+    	}
 
         
         private static String initIV() {

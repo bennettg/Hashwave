@@ -29,7 +29,7 @@ public class Hashwave {
 	
 	public String decryptData (String input, String key) throws Exception {
 		MCrypt mcrypt = new MCrypt(key);
-		String decrypted = mcrypt.decrypt( input );
+		String decrypted = mcrypt.decrypt(input);
 		
 		return decrypted;
 	}
