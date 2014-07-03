@@ -1,9 +1,6 @@
 package com.hashwave;
 
 import org.apache.commons.codec.binary.Base64;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.Cipher;
 
 public class Hashwave {
 	//private static byte[] iv =
