@@ -29,7 +29,7 @@ public class HashwaveGui extends JFrame implements ActionListener {
 	JButton getStatusButton = new JButton("Get Size of IV");
 	JButton decryptButton = new JButton("Decrypt");
 	JLabel encryptionLabel = new JLabel("Data to Encrypt/Decrypt:  ");
-	JLabel keyLabel = new JLabel("Key (Must be 15 characters):  ");
+	JLabel keyLabel = new JLabel("Key (Must be 16 characters):  ");
 	JPanel mainPane = new JPanel( new BorderLayout(5,5) );
 	
 	boolean wrap = true;

@@ -2,6 +2,8 @@ package com.hashwave;
 
 import java.security.NoSuchAlgorithmException;
 
+
+
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
@@ -11,7 +13,7 @@ public class MCrypt {
 
         static char[] HEX_CHARS = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
-        private String iv = "fedcba9876543211";//Dummy iv (CHANGE IT!)0
+        private String iv = initIV();//Dummy iv (CHANGE IT!)0
         private IvParameterSpec ivspec;
         private SecretKeySpec keyspec;
         private Cipher cipher;
@@ -117,6 +119,14 @@ public class MCrypt {
                 }
         }
 
+        
+        private static String initIV() {
+			String iv = "a9dsfn3";
+	
+			RandomGen rand = new RandomGen();
+			iv = iv + rand;
+			return iv;
+        }
 
 
         private static String padString(String source)
