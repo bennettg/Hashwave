@@ -99,22 +99,23 @@ public class HashwaveGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
         if(e.getSource() == encryptButton){
         	try {
-        		dataBox.setText( hwi.encryptData(dataBox.getText().getBytes(),this.key).toString());
+        		dataBox.setText( hwi.encryptData(dataBox.getText(),keyBox.getText() ));
         	} catch (Exception e1){
         		System.out.println(e1);
         	}
         }else if(e.getSource() == decryptButton){
         	try {
-        		byte[] datab = dataBox.getText().getBytes();
-        		byte[] datab1 = java.util.Arrays.copyOf(datab,48);
+        		String ddata = dataBox.getText();
+        		String key = keyBox.getText();
         		
-        		dataBox.setText( hwi.decryptData(datab1,this.key).toString());
+        		dataBox.setText( hwi.decryptData(ddata,key) );
         	} catch (Exception e1){
         		System.out.println(e1);
         	}
         }else if(e.getSource() == getStatusButton){
-        	Integer fullMessage = hwi.getIvLength();
-        	JOptionPane.showMessageDialog(null,fullMessage.toString());
+        	//Integer fullMessage = hwi.getIvLength();
+        	//JOptionPane.showMessageDialog(null,fullMessage.toString());
+        	JOptionPane.showMessageDialog(null,"Nothing to show. Using MCrypt version 1.0 Modified by Sharetunnel Inc. (Hashwave Inc.)");
         }
 	}
 	

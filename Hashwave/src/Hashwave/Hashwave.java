@@ -23,20 +23,18 @@ public class Hashwave {
 		hwGui.setStyle();
 	}
 	
-	public byte[] encryptData (byte[] input, SecretKey key) throws Exception {
-	  Cipher cipher = Cipher.getInstance(this.defaultCipher);
-	    IvParameterSpec ips = new IvParameterSpec(Hashwave.iv);
-	    cipher.init(Cipher.ENCRYPT_MODE, key, ips);
-	    
-	    return cipher.doFinal(input);
+	public String encryptData (String input, String key) throws Exception {
+		MCrypt mcrypt = new MCrypt(key);
+		String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(input) );
+		
+		return encrypted;
 	}
 	
-	public byte[] decryptData (byte[] input, SecretKey key) throws Exception {
-	  Cipher cipher = Cipher.getInstance(this.defaultCipher);
-	    IvParameterSpec ips = new IvParameterSpec(Hashwave.iv);
-	    cipher.init(Cipher.DECRYPT_MODE, key, ips);
-	    
-	    return cipher.doFinal(input);
+	public String decryptData (String input, String key) throws Exception {
+		MCrypt mcrypt = new MCrypt(key);
+		String decrypted = MCrypt.bytesToHex( mcrypt.encrypt(input) );
+		
+		return decrypted;
 	}
 	
 	public String maskData (byte[] input){
