@@ -22,9 +22,9 @@ public class MCrypt {
         {
                 ivspec = new IvParameterSpec(iv.getBytes());
 
-                
-                	//this.SecretKey = key;
-                
+                if(key!=null && !key.isEmpty()){
+                	this.SecretKey = key;
+                }
             	keyspec = new SecretKeySpec(SecretKey.getBytes(), "AES");
 
 
