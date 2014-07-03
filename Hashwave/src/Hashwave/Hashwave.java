@@ -6,10 +6,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.Cipher;
 
 public class Hashwave {
-	private static byte[] iv =
-		{ 0x0a, 0x01, 0x78, 0x35, 0x35, 0x21, 0x4f, 0x73, 0x0a, 0x01, 0x78, 0x35, 0x35, 0x21, 0x4f, 0x73 };
+	//private static byte[] iv =
+		//{ 0x0a, 0x01, 0x78, 0x35, 0x35, 0x21, 0x4f, 0x73, 0x0a, 0x01, 0x78, 0x35, 0x35, 0x21, 0x4f, 0x73 };
 	
-	protected String defaultCipher = "AES/CBC/PKCS5Padding";
+	//protected String defaultCipher = "AES/CBC/PKCS5Padding";
 	HashwaveGui hwGui;
 	
 	public static void main(String[] args){
@@ -47,8 +47,5 @@ public class Hashwave {
 		return decoded;
 	}
 	
-	public int getIvLength () {
-		return Hashwave.iv.length;
-	}
 
 }
