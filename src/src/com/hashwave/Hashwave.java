@@ -22,14 +22,14 @@ public class Hashwave {
 	
 	public String encryptData (String input, String key) throws Exception {
 		MCrypt mcrypt = new MCrypt(key);
-		String encrypted = mcrypt.encrypt(input); //MCrypt.bytesToHex( mcrypt.encrypt(input) );
+		String encrypted = MCrypt.bytesToHex( mcrypt.encrypt(input) );
 		
 		return encrypted;
 	}
 	
 	public String decryptData (String input, String key) throws Exception {
 		MCrypt mcrypt = new MCrypt(key);
-		String decrypted = mcrypt.decrypt( input );
+		String decrypted = new String (mcrypt.decrypt( input ));
 		
 		return decrypted;
 	}
