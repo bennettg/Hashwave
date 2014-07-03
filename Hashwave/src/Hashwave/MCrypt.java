@@ -11,18 +11,23 @@ public class MCrypt {
 
         static char[] HEX_CHARS = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
-        private String iv = "fedcba9876543210";//Dummy iv (CHANGE IT!)
+        private String iv = "4d5k434danh4m87x842";//Dummy iv (CHANGE IT!)
         private IvParameterSpec ivspec;
         private SecretKeySpec keyspec;
         private Cipher cipher;
 
-        private String SecretKey = "0123456789abcdef";//Dummy secretKey (CHANGE IT!)
+        private String SecretKey = "325ruf8mwm34od9";//Dummy secretKey (CHANGE IT!)
 
-        public MCrypt()
+        public MCrypt(String key)
         {
                 ivspec = new IvParameterSpec(iv.getBytes());
 
-                keyspec = new SecretKeySpec(SecretKey.getBytes(), "AES");
+                if(key != null && !key.isEmpty()){
+                	this.SecretKey = key;
+                }
+                
+            	keyspec = new SecretKeySpec(SecretKey.getBytes(), "AES");
+
 
                 try {
                         cipher = Cipher.getInstance("AES/CBC/NoPadding");
