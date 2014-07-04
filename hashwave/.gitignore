@@ -2,4 +2,4 @@
 /.settings/
 .classpath
 .project
-/src/com/hashwave/HWEncrypt.java
+/src/com/hashwave/HWCrypt.java

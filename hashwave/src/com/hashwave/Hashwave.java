@@ -6,7 +6,7 @@ public class Hashwave {
 
 	HashwaveGui hwGui;
 	RandomGen randgen;
-	MCryptH mcrypt;
+	HWCrypt mcrypt;
 	static String versionNumber = "v1.1.0";
 	static String aboutMessage = "You are using Hashwave "+versionNumber+" \r\n Developed by Sharetunnel Inc. \r\n "
 			+ "Hashwave originally started out as a Web Application developed by Bennett Gibson \r\n kind of for the heck of"
@@ -25,7 +25,7 @@ public class Hashwave {
 	
 	public String encryptData (String input, String key) throws Exception {
 		try{
-			mcrypt = new MCryptH(key);
+			mcrypt = new HWCrypt(key);
 		}catch(Exception e){
 			return e.toString();
 		}
@@ -38,7 +38,7 @@ public class Hashwave {
 		randgen = new RandomGen();
 		
 		try {
-			mcrypt = new MCryptH(key);
+			mcrypt = new HWCrypt(key);
 		}catch(Exception e){
 			return e.toString();
 		}
