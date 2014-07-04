@@ -13,7 +13,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class MCryptH {
+public class HWEncrypt {
 
         static char[] HEX_CHARS = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
@@ -30,7 +30,7 @@ public class MCryptH {
          * hw special pre key (this means no other program or algorithm aside from Hashwave could decrypt this
          */
 
-        public MCryptH(String key) throws NoSuchAlgorithmException {
+        public HWEncrypt(String key) throws NoSuchAlgorithmException {
                 ivspec1 = new IvParameterSpec(iv.getBytes());
                 ivspec12 = new IvParameterSpec(ivl2.getBytes());
 
